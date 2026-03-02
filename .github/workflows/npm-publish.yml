@@ -1,4 +1,4 @@
-name: Multi React Projects CI
+name: React CI
 
 on:
   push:
@@ -8,37 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        project:
-          - 01-CounterHistory
-          - 02-TodoPriority
-          - 03-PomodoroTimer
-          - 04-MarkdownPreview
-          - 05-ColorPalette
-          - 06-BMICalculator
-          - 07-PasswordGenerator
-          - 08-TypingSpeedTest
-          - 09-QuizApp
-          - 10-CurrencyConverter
-          - 11-WeatherWidget
-          - 12-ExpenseTracker
-          - 13-ShoppingCart-useReducer
-          - 14-InfiniteScroll
-          - 15-ThemeToggle-Context
-          - 16-Accordion
-          - 17-ImageGallery-Lightbox
-          - 18-DebounceSearch
-
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
-      - name: Install and Build
-        run: |
-          cd ${{ matrix.project }}
-          npm ci
-          npm run build
+      - run: npm ci
+      - run: npm run build
