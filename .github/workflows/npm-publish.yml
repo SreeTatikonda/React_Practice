@@ -1,33 +1,44 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: Node.js Package
+name: Multi React Projects CI
 
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - 01-CounterHistory
+          - 02-TodoPriority
+          - 03-PomodoroTimer
+          - 04-MarkdownPreview
+          - 05-ColorPalette
+          - 06-BMICalculator
+          - 07-PasswordGenerator
+          - 08-TypingSpeedTest
+          - 09-QuizApp
+          - 10-CurrencyConverter
+          - 11-WeatherWidget
+          - 12-ExpenseTracker
+          - 13-ShoppingCart-useReducer
+          - 14-InfiniteScroll
+          - 15-ThemeToggle-Context
+          - 16-Accordion
+          - 17-ImageGallery-Lightbox
+          - 18-DebounceSearch
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+      - name: Install and Build
+        run: |
+          cd ${{ matrix.project }}
+          npm ci
+          npm run build
