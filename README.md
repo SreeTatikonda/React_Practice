@@ -1,6 +1,5 @@
-# 30 React Projects — Master's Level
+# 30 React Projects 
 
-A collection of 30 standalone React components covering core concepts expected at the master's/senior level.
 
 ## How to Run Any Project
 
